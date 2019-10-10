@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreditsView" customModule="weather_app" customModuleProvider="target">
             <connections>
+                <outlet property="creditsForWeatherIconsField" destination="TqG-F5-4a1" id="cJb-ch-h2a"/>
                 <outlet property="view" destination="iN0-l3-epB" id="ImQ-Yg-ek1"/>
             </connections>
         </placeholder>
@@ -19,7 +20,31 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TqG-F5-4a1">
+                    <rect key="frame" x="-322.5" y="121" width="1020" height="30"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" link="YES"/>
+                    </accessibility>
+                    <string key="text">Weather icons made by &lt;a href="https://www.flaticon.com/authors/iconixar"&gt;iconixar&lt;/a&gt; from &lt;a href="https://www.flaticon.com"&gt;www.flaticon.com&lt;/a&gt;</string>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credits:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmt-nJ-39R">
+                    <rect key="frame" x="157.5" y="70" width="60" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="TqG-F5-4a1" firstAttribute="top" secondItem="nmt-nJ-39R" secondAttribute="bottom" constant="30" id="0Ka-S3-HxL"/>
+                <constraint firstItem="TqG-F5-4a1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="7uN-t1-OXk"/>
+                <constraint firstItem="nmt-nJ-39R" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="50" id="i4Y-aK-jla"/>
+                <constraint firstItem="nmt-nJ-39R" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="tli-aL-fiz"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
         </view>
     </objects>

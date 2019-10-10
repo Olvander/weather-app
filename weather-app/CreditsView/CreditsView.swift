@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import Foundation
 
 class CreditsView: UIViewController {
+    
+    @IBOutlet weak var creditsForWeatherIconsField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
 }
