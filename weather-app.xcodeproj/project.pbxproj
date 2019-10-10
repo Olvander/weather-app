@@ -12,6 +12,7 @@
 		E8E0D65D234F732300F736B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D65B234F732300F736B2 /* Main.storyboard */; };
 		E8E0D65F234F733400F736B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D65E234F733400F736B2 /* Assets.xcassets */; };
 		E8E0D662234F733400F736B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D660234F733400F736B2 /* LaunchScreen.storyboard */; };
+		E8E0D66F234F884C00F736B2 /* CurrentWeatherView in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D66E234F884C00F736B2 /* CurrentWeatherView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		E8E0D65E234F733400F736B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E8E0D661234F733400F736B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E8E0D663234F733400F736B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E8E0D66E234F884C00F736B2 /* CurrentWeatherView */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CurrentWeatherView; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				E8E0D657234F732300F736B2 /* AppDelegate.swift */,
+				E8E0D66D234F87AA00F736B2 /* CurrentWeatherView */,
 				E8E0D659234F732300F736B2 /* ViewController.swift */,
 				E8E0D65B234F732300F736B2 /* Main.storyboard */,
 				E8E0D65E234F733400F736B2 /* Assets.xcassets */,
@@ -62,6 +65,14 @@
 				E8E0D663234F733400F736B2 /* Info.plist */,
 			);
 			path = "weather-app";
+			sourceTree = "<group>";
+		};
+		E8E0D66D234F87AA00F736B2 /* CurrentWeatherView */ = {
+			isa = PBXGroup;
+			children = (
+				E8E0D66E234F884C00F736B2 /* CurrentWeatherView */,
+			);
+			path = CurrentWeatherView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +135,7 @@
 			files = (
 				E8E0D662234F733400F736B2 /* LaunchScreen.storyboard in Resources */,
 				E8E0D65F234F733400F736B2 /* Assets.xcassets in Resources */,
+				E8E0D66F234F884C00F736B2 /* CurrentWeatherView in Resources */,
 				E8E0D65D234F732300F736B2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
