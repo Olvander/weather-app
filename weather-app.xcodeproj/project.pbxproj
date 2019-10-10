@@ -18,6 +18,8 @@
 		E8E0D67A234F8DC700F736B2 /* WeatherForecastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D679234F8DC700F736B2 /* WeatherForecastView.xib */; };
 		E8E0D67D234F8EB100F736B2 /* CityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E0D67C234F8EB100F736B2 /* CityView.swift */; };
 		E8E0D67F234F8EF900F736B2 /* CityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D67E234F8EF900F736B2 /* CityView.xib */; };
+		E8E0D682234F9C3F00F736B2 /* CreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E0D681234F9C3F00F736B2 /* CreditsView.swift */; };
+		E8E0D684234F9C4C00F736B2 /* CreditsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D683234F9C4C00F736B2 /* CreditsView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		E8E0D679234F8DC700F736B2 /* WeatherForecastView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherForecastView.xib; sourceTree = "<group>"; };
 		E8E0D67C234F8EB100F736B2 /* CityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityView.swift; sourceTree = "<group>"; };
 		E8E0D67E234F8EF900F736B2 /* CityView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityView.xib; sourceTree = "<group>"; };
+		E8E0D681234F9C3F00F736B2 /* CreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsView.swift; sourceTree = "<group>"; };
+		E8E0D683234F9C4C00F736B2 /* CreditsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditsView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				E8E0D657234F732300F736B2 /* AppDelegate.swift */,
+				E8E0D685234F9C5700F736B2 /* CreditsView */,
 				E8E0D676234F8C6500F736B2 /* CurrentWeatherView */,
 				E8E0D659234F732300F736B2 /* ViewController.swift */,
 				E8E0D67B234F8DE200F736B2 /* WeatherForecastView */,
@@ -105,6 +110,15 @@
 				E8E0D67E234F8EF900F736B2 /* CityView.xib */,
 			);
 			path = CityView;
+			sourceTree = "<group>";
+		};
+		E8E0D685234F9C5700F736B2 /* CreditsView */ = {
+			isa = PBXGroup;
+			children = (
+				E8E0D681234F9C3F00F736B2 /* CreditsView.swift */,
+				E8E0D683234F9C4C00F736B2 /* CreditsView.xib */,
+			);
+			path = CreditsView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +183,7 @@
 				E8E0D675234F8C3700F736B2 /* CurrentWeatherView.xib in Resources */,
 				E8E0D65F234F733400F736B2 /* Assets.xcassets in Resources */,
 				E8E0D67A234F8DC700F736B2 /* WeatherForecastView.xib in Resources */,
+				E8E0D684234F9C4C00F736B2 /* CreditsView.xib in Resources */,
 				E8E0D65D234F732300F736B2 /* Main.storyboard in Resources */,
 				E8E0D67F234F8EF900F736B2 /* CityView.xib in Resources */,
 			);
@@ -184,6 +199,7 @@
 				E8E0D673234F8C2400F736B2 /* CurrentWeatherView.swift in Sources */,
 				E8E0D67D234F8EB100F736B2 /* CityView.swift in Sources */,
 				E8E0D65A234F732300F736B2 /* ViewController.swift in Sources */,
+				E8E0D682234F9C3F00F736B2 /* CreditsView.swift in Sources */,
 				E8E0D678234F8DB600F736B2 /* WeatherForecastView.swift in Sources */,
 				E8E0D658234F732300F736B2 /* AppDelegate.swift in Sources */,
 			);

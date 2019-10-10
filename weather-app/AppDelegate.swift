@@ -32,6 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let cityViewNavigation = UINavigationController()
         cityViewNavigation.pushViewController(cityView, animated: true)
         
+        let creditsView = CreditsView(nibName: "CreditsView", bundle: nil)
+        creditsView.title = "Credits"
+        let creditsNavigation = UINavigationController()
+        creditsNavigation.pushViewController((creditsView, animated: true)
+        
         let tabs = UITabBarController()
         tabs.viewControllers = [currentWeatherNavigation,
                                 weatherForecastNavigation,
