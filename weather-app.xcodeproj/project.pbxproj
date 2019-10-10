@@ -87,8 +87,8 @@
 		E8E0D67B234F8DE200F736B2 /* WeatherForecastView */ = {
 			isa = PBXGroup;
 			children = (
-				E8E0D679234F8DC700F736B2 /* WeatherForecastView.xib */,
 				E8E0D677234F8DB600F736B2 /* WeatherForecastView.swift */,
+				E8E0D679234F8DC700F736B2 /* WeatherForecastView.xib */,
 			);
 			path = WeatherForecastView;
 			sourceTree = "<group>";
