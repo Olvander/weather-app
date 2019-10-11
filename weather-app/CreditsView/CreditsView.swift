@@ -10,12 +10,16 @@ import UIKit
 import Foundation
 
 class CreditsView: UIViewController {
-    
-    @IBOutlet weak var creditsForWeatherIconsField: UITextField!
+
+    @IBAction func oniconixarButtonClick(_ sender: Any) {
+        UIApplication.shared.open(NSURL(string: "https://www.flaticon.com/authors/iconixar")! as URL)
+    }
+    @IBAction func onFlaticonButtonClick(_ sender: Any) {
+        UIApplication.shared.open(NSURL(string: "https://www.flaticon.com")! as URL)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
     }
 }
