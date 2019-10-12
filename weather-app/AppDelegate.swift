@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+/*
         let currentWeatherView = CurrentWeatherView(nibName: "CurrentWeatherView", bundle: nil)
         currentWeatherView.title = "Current Weather"
         let currentWeatherNavigation = UINavigationController()
@@ -24,9 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let weatherForecastView = WeatherForecastView(nibName: "WeatherForecastView", bundle: nil)
         weatherForecastView.title = "5 Day Weather Forecast"
+        /*
         let weatherForecastNavigation = UINavigationController()
         weatherForecastNavigation.pushViewController(weatherForecastView, animated: true)
-        
+ */
         let cityView = CityView(nibName: "CityView", bundle: nil)
         cityView.title = "City Selection"
         let cityViewNavigation = UINavigationController()
@@ -39,11 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabs = UITabBarController()
         tabs.viewControllers = [currentWeatherNavigation,
-                                weatherForecastNavigation,
+                                weatherForecastView,
                                 cityViewNavigation,
                                 creditsNavigation]
         
         self.window!.rootViewController = tabs
+        */
         
         return true
     }

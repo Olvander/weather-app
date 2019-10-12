@@ -10,15 +10,14 @@ import UIKit
 
 class CurrentWeatherView: UIViewController {
     
-    
     @IBOutlet weak var cityLabel: UILabel!
     
     @IBOutlet weak var temperatureLabel: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.title = "Current Weather"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,14 +43,16 @@ class CurrentWeatherView: UIViewController {
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
             NSLog(resstr!)
-            self.setLabelTexts(data: data!)
+            if data != nil {
+                self.setLabelTexts(data: data!)
+            }
         })
     }
     
     func setLabelTexts(data currentWeather: Data) {
         
         var jsonObj: NSDictionary?
-        
+            
         do {
              jsonObj = try JSONSerialization.jsonObject(with: currentWeather, options: .mutableContainers) as? NSDictionary
         } catch {
@@ -61,13 +62,13 @@ class CurrentWeatherView: UIViewController {
         if let json = jsonObj {
             
             if let name = json["name"] as? String {
-                cityLabel!.text = name
+                self.cityLabel!.text = name
             }
             if let main = json["main"] as? NSDictionary {
                 if let temperature = main["temp"] as? Double {
-                    temperatureLabel!.text = String(format: "%.1f", temperature)
+                    self.temperatureLabel!.text = String(format: "%.1f", temperature)
                 }
-             }
+            }
         }
     }
 }
