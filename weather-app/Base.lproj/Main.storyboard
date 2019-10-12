@@ -70,6 +70,7 @@
                     <connections>
                         <outlet property="cityLabel" destination="CcK-Qq-3IL" id="AuG-3k-iVb"/>
                         <outlet property="temperatureLabel" destination="aMq-Z0-Whc" id="RV0-Ny-hLG"/>
+                        <outlet property="weatherIcon" destination="nPu-pT-aNt" id="s2N-jd-wmm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJD-fd-nbe" userLabel="First Responder" sceneMemberID="firstResponder"/>

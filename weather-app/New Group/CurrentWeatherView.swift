@@ -12,6 +12,9 @@ class CurrentWeatherView: UIViewController {
     
     @IBOutlet weak var cityLabel: UILabel!
     
+    @IBOutlet weak var weatherIcon: UIImageView!
+    
+    
     @IBOutlet weak var temperatureLabel: UILabel!
     
     override func viewDidLoad() {
@@ -44,12 +47,12 @@ class CurrentWeatherView: UIViewController {
         DispatchQueue.main.async(execute: {() in
             NSLog(resstr!)
             if data != nil {
-                self.setLabelTexts(data: data!)
+                self.setLabelsAndIcon(data: data!)
             }
         })
     }
     
-    func setLabelTexts(data currentWeather: Data) {
+    func setLabelsAndIcon(data currentWeather: Data) {
         
         var jsonObj: NSDictionary?
             
@@ -64,6 +67,21 @@ class CurrentWeatherView: UIViewController {
             if let name = json["name"] as? String {
                 self.cityLabel!.text = name
             }
+            
+            if let weather = json["weather"] as? Array<NSDictionary> {
+                if let icon = weather[0]["icon"] as? String {
+                   
+                    let url = URL(string: "https://openweathermap.org/img/wn/\(icon)@2x.png")
+                    
+                    do {
+                        let data = try Data(contentsOf: url!)
+                    self.weatherIcon!.image = UIImage(data: data)
+                    } catch {
+                        print("Something went wrong while fetching the url \(url).")
+                    }
+                }
+            }
+            
             if let main = json["main"] as? NSDictionary {
                 if let temperature = main["temp"] as? Double {
                     self.temperatureLabel!.text = String(format: "%.1f", temperature)
