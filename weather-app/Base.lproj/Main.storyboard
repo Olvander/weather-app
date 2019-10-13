@@ -38,29 +38,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcK-Qq-3IL">
-                                <rect key="frame" x="172" y="190" width="31" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Temperature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMq-Z0-Whc">
-                                <rect key="frame" x="138.5" y="409" width="98" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nPu-pT-aNt">
-                                <rect key="frame" x="67" y="269" width="240" height="128"/>
+                                <rect key="frame" x="37.5" y="291" width="300" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="kEd-x8-tVm"/>
+                                </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ai0-aV-4DI">
+                                <rect key="frame" x="50" y="410" width="300" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.88627450980392153" green="0.97647058823529409" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Temperature" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMq-Z0-Whc">
+                                <rect key="frame" x="177" y="476" width="98" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="City" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcK-Qq-3IL">
+                                <rect key="frame" x="191" y="199" width="31" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYu-Xb-Qwr">
+                                <rect key="frame" x="50" y="233" width="300" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.88803182767559674" green="0.98431372549019602" blue="0.41206492919893772" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="aMq-Z0-Whc" firstAttribute="top" secondItem="nPu-pT-aNt" secondAttribute="bottom" constant="8" id="1FO-lg-v7p"/>
-                            <constraint firstItem="aMq-Z0-Whc" firstAttribute="centerX" secondItem="xWr-bl-F8h" secondAttribute="centerX" id="9p1-hv-Wve"/>
-                            <constraint firstItem="nPu-pT-aNt" firstAttribute="top" secondItem="CcK-Qq-3IL" secondAttribute="bottom" constant="8" id="leH-Wa-UrX"/>
                             <constraint firstItem="nPu-pT-aNt" firstAttribute="centerY" secondItem="xWr-bl-F8h" secondAttribute="centerY" id="xUi-5b-teY"/>
-                            <constraint firstItem="CcK-Qq-3IL" firstAttribute="centerX" secondItem="xWr-bl-F8h" secondAttribute="centerX" id="xlK-pl-EBk"/>
                             <constraint firstItem="nPu-pT-aNt" firstAttribute="centerX" secondItem="xWr-bl-F8h" secondAttribute="centerX" id="yDE-h4-oVY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xWr-bl-F8h"/>
@@ -68,13 +79,15 @@
                     <navigationItem key="navigationItem" id="yop-a6-3c0"/>
                     <connections>
                         <outlet property="cityLabel" destination="CcK-Qq-3IL" id="AuG-3k-iVb"/>
+                        <outlet property="cityView" destination="GYu-Xb-Qwr" id="Tmk-Vc-FVc"/>
                         <outlet property="temperatureLabel" destination="aMq-Z0-Whc" id="RV0-Ny-hLG"/>
+                        <outlet property="temperatureView" destination="ai0-aV-4DI" id="mOK-2C-Cy0"/>
                         <outlet property="weatherIcon" destination="nPu-pT-aNt" id="s2N-jd-wmm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJD-fd-nbe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452" y="-663"/>
+            <point key="canvasLocation" x="2452" y="-663.41829085457277"/>
         </scene>
         <!--5 Day Weather Forecast-->
         <scene sceneID="SZ7-K7-Gjf">
