@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E801F3F02354821600F726DB /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801F3EF2354821600F726DB /* CustomCell.swift */; };
 		E8E0D658234F732300F736B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E0D657234F732300F736B2 /* AppDelegate.swift */; };
 		E8E0D65A234F732300F736B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E0D659234F732300F736B2 /* ViewController.swift */; };
 		E8E0D65D234F732300F736B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D65B234F732300F736B2 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E801F3EF2354821600F726DB /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		E8E0D654234F732200F736B2 /* weather-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "weather-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E0D657234F732300F736B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8E0D659234F732300F736B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 		E8E0D64B234F732200F736B2 = {
 			isa = PBXGroup;
 			children = (
+				E801F3EF2354821600F726DB /* CustomCell.swift */,
 				E8E0D656234F732200F736B2 /* weather-app */,
 				E8E0D655234F732200F736B2 /* Products */,
 			);
@@ -177,6 +180,7 @@
 				E8E0D67D234F8EB100F736B2 /* CityView.swift in Sources */,
 				E8E0D65A234F732300F736B2 /* ViewController.swift in Sources */,
 				E8E0D678234F8DB600F736B2 /* WeatherForecastView.swift in Sources */,
+				E801F3F02354821600F726DB /* CustomCell.swift in Sources */,
 				E8E0D658234F732300F736B2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
