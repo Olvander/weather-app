@@ -12,7 +12,7 @@ class WeatherForecastView: UITableViewController {
     var weatherForecastIcon: UIImageView?
     @IBOutlet weak var weatherForecastData: UITextView!
 
-    var weatherForecast = ["placeholder"] //["rain, 5.0", "sunny, 12.0", "cloudy, 10.0"]
+    var weatherForecast: [Item] = [Item]() //["rain, 5.0", "sunny, 12.0", "cloudy, 10.0"]
     @IBOutlet weak var tableview: UITableView!
     
     override func viewDidLoad() {
@@ -20,13 +20,20 @@ class WeatherForecastView: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         self.title = "5 Day Weather Forecast"
+        
+        self.view.backgroundColor = UIColor(red: 0.20, green: 0.78, blue: 0.95, alpha: 1.00)
 
         self.tableview.dataSource = self
         self.tableview.delegate = self
+        
+        self.weatherForecast = WeatherAPIClient().getCellItemData()
+        self.tableview.reloadData()
+        
+//        fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=Tampere,finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=Tampere,finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+        
     }
     
     func fetchUrl(url : String) {
@@ -74,13 +81,13 @@ class WeatherForecastView: UITableViewController {
                 if (self.weatherForecastIcon == nil) {
                     self.weatherForecastIcon = UIImageView(image: UIImage(data: data))
                     
-                    self.weatherForecast[0] = "Rain1"
+                    //self.weatherForecast[0] = "Rain1"
                     
                 } else {
                 
                     self.weatherForecastIcon!.image = UIImage(data: data)
                     
-                    self.weatherForecast.append("Rain2")
+                    //self.weatherForecast.append("Rain2")
 
                 }
                 
@@ -100,9 +107,15 @@ class WeatherForecastView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "weatherForecast", for: indexPath)
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "weatherForecast", for: indexPath) as? CustomCell {
+            
+            cell.configureCell(item: self.weatherForecast[indexPath.row])
+            cell.backgroundColor = UIColor(red: 0.20, green: 0.78, blue: 0.95, alpha: 0.0)
+            
+            return cell
+        }
         
-      
+      /*
         if self.weatherForecastIcon != nil {
             
             let img = self.weatherForecastIcon!.image
@@ -113,7 +126,8 @@ class WeatherForecastView: UITableViewController {
         } else {
             self.weatherForecastIcon = cell.imageView!
         }
-        return cell
+ */
+        return UITableViewCell()
     }
     
 }

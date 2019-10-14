@@ -11,6 +11,13 @@ import Foundation
 import UIKit
 
 struct Item {
-    let image: UIImage = UIImage()
-    let text: String = ""
+    var image: UIImage = UIImage()
+    var forecast: String = ""
+    var date: String = ""
+    
+    init(image: UIImage, forecast: String, date: String) {
+        self.image = image
+        self.forecast = forecast
+        self.date = date
+    }
 }
