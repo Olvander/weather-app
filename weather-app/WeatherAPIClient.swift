@@ -1,5 +1,5 @@
 //
-//  Item.swift
+//  WeatherAPIClient.swift
 //  weather-app
 //
 //  Created by Olli Pertovaara on 14/10/2019.
@@ -7,10 +7,3 @@
 //
 
 import Foundation
-
-import UIKit
-
-struct Item {
-    let image: UIImage = UIImage()
-    let text: String = ""
-}

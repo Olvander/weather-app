@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E801F3F02354821600F726DB /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801F3EF2354821600F726DB /* CustomCell.swift */; };
 		E801F3F22354840200F726DB /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801F3F12354840200F726DB /* Item.swift */; };
+		E801F3F4235485C000F726DB /* WeatherAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E801F3F3235485C000F726DB /* WeatherAPIClient.swift */; };
 		E8E0D658234F732300F736B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E0D657234F732300F736B2 /* AppDelegate.swift */; };
 		E8E0D65A234F732300F736B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E0D659234F732300F736B2 /* ViewController.swift */; };
 		E8E0D65D234F732300F736B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D65B234F732300F736B2 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		E801F3EF2354821600F726DB /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		E801F3F12354840200F726DB /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		E801F3F3235485C000F726DB /* WeatherAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIClient.swift; sourceTree = "<group>"; };
 		E8E0D654234F732200F736B2 /* weather-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "weather-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E0D657234F732300F736B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8E0D659234F732300F736B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				E8E0D660234F733400F736B2 /* LaunchScreen.storyboard */,
 				E8E0D663234F733400F736B2 /* Info.plist */,
 				E801F3F12354840200F726DB /* Item.swift */,
+				E801F3F3235485C000F726DB /* WeatherAPIClient.swift */,
 			);
 			path = "weather-app";
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			files = (
 				E8E0D673234F8C2400F736B2 /* CurrentWeatherView.swift in Sources */,
 				E8E0D67D234F8EB100F736B2 /* CityView.swift in Sources */,
+				E801F3F4235485C000F726DB /* WeatherAPIClient.swift in Sources */,
 				E8E0D65A234F732300F736B2 /* ViewController.swift in Sources */,
 				E8E0D678234F8DB600F736B2 /* WeatherForecastView.swift in Sources */,
 				E801F3F22354840200F726DB /* Item.swift in Sources */,
