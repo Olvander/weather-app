@@ -48,7 +48,6 @@
 		E8E0D64B234F732200F736B2 = {
 			isa = PBXGroup;
 			children = (
-				E801F3EF2354821600F726DB /* CustomCell.swift */,
 				E8E0D656234F732200F736B2 /* weather-app */,
 				E8E0D655234F732200F736B2 /* Products */,
 			);
@@ -65,6 +64,7 @@
 		E8E0D656234F732200F736B2 /* weather-app */ = {
 			isa = PBXGroup;
 			children = (
+				E801F3EF2354821600F726DB /* CustomCell.swift */,
 				E8E0D657234F732300F736B2 /* AppDelegate.swift */,
 				E8E0D676234F8C6500F736B2 /* CurrentWeatherView */,
 				E8E0D659234F732300F736B2 /* ViewController.swift */,
