@@ -1,5 +1,5 @@
 //
-//  CustomCell.swift
+//  Item.swift
 //  weather-app
 //
 //  Created by Olli Pertovaara on 14/10/2019.
@@ -7,8 +7,3 @@
 //
 
 import Foundation
-import UIKit
-
-class CustomCell: UITableViewCell {
-
-}
