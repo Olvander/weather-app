@@ -109,7 +109,7 @@ class CurrentWeatherView: UIViewController {
             
             if let main = json["main"] as? NSDictionary {
                 if let temperature = main["temp"] as? Double {
-                    self.temperatureLabel!.text = String(format: "%.1f", temperature)
+                    self.temperatureLabel!.text = String(format: "%.1f", temperature) + " C"
 
                     self.temperatureLabel!.sizeToFit()
                     

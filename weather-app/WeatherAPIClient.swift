@@ -10,25 +10,137 @@ import Foundation
 import UIKit
 
 class WeatherAPIClient {
+    var forecasts = [String]()
+    var dates = [String]()
+    var images = [UIImage]()
+    var temperatures = [String]()
+    var group: DispatchGroup?
+    var group2: DispatchGroup?
+    var doned = false
+    var queue: DispatchQueue?
+    var queueEmpty = false
+    var tableview: UITableView?
+    
     func getCellItemData() -> [Item] {
         var array: [Item] = [Item]()
-        do {
-            let url = URL(string: "https://openweathermap.org/img/wn/02d.png")
-            let data = try Data(contentsOf: url!)
-            
-            let item1 = Item(image: UIImage(data: data)!, forecast: "Rain", date: "date1")
-            let item2 = Item(image:UIImage(data: data)!, forecast: "Sunny", date: "date2")
-            let item3 = Item(image:UIImage(data: data)!, forecast: "Cloudy", date: "date3")
-            let item4 = Item(image: UIImage(data: data)!, forecast: "Misty", date: "date4")
-            array.append(item1)
-            array.append(item2)
-            array.append(item3)
-            array.append(item4)
-            
-        } catch {
-            print("an error occurred")
+        
+        self.group = DispatchGroup()
+        
+        self.group!.enter()
+        
+        fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=Tampere,finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+        
+        self.group!.wait()
+        
+        var i = -1
+        while i < self.forecasts.count - 1 && self.forecasts.count != 0 {
+            i += 1
+            let item = Item(image: self.images[i], forecast: self.forecasts[i], date: self.dates[i])
+            array.append(item)
         }
         
         return array
+    }
+    
+    func fetchUrl(url : String) {
+        let config = URLSessionConfiguration.default
+        
+        let session = URLSession(configuration: config)
+        
+        let url : URL? = URL(string: url)
+        
+        
+        let task = session.dataTask(with: url!, completionHandler: doneFetching);
+        
+        // Starts the task, spawns a new thread and calls the callback function
+        
+        task.resume();
+        
+    }
+    
+    func pass(tableview: UITableView) {
+        self.tableview = tableview
+    }
+    
+    func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
+        
+        let resstr = String(data: data!, encoding: String.Encoding.utf8)
+
+        if data != nil {
+            self.setForeCastDataAndIcons(data: data!)
+        }
+        
+        self.group!.leave()
+
+        // Execute stuff in UI thread
+        DispatchQueue.main.async(execute: {() in
+            NSLog(resstr!)
+            
+            self.tableview!.reloadData()
+        })
+
+    }
+    
+    func setForeCastDataAndIcons(data forecast: Data) {
+        
+        var jsonObj: NSDictionary?
+        
+        do {
+            jsonObj = try JSONSerialization.jsonObject(with: forecast, options: .mutableContainers) as? NSDictionary
+        } catch {
+            print("An error occurred serializing the weather forecast data")
+        }
+        
+        if let json = jsonObj {
+            
+            var icon = ""
+            var mainWeather = ""
+            var temperature = ""
+            var date = ""
+            
+            if let list = json["list"] as? Array<NSDictionary> {
+                
+                for listItem in list {
+                    
+                    if let weather = listItem["weather"] as? Array<NSDictionary> {
+                        if let iconText = weather[0]["icon"] as? String {
+                            icon = iconText
+                        }
+                        if let main = weather[0]["main"] as? String {
+                            mainWeather = main
+                        }
+                    }
+                    
+                    if let main2 = listItem["main"] as? NSDictionary {
+                        if let temp = main2["temp"] as? Double {
+                            temperature = String(format: "%.1f", temp)
+                        }
+                    }
+                    
+                    if let dateInTextFormat = listItem["dt"] as? Double {
+                        let dateDate = Date(timeIntervalSince1970: TimeInterval(exactly: dateInTextFormat)!)
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yyyy-MM-dd HH:mm a"
+                        formatter.amSymbol = "AM"
+                        formatter.pmSymbol = "PM"
+                        date = formatter.string(from: dateDate)
+                    }
+                    if icon != "" && temperature != "" && mainWeather != "" && date != "" {
+                        
+                        let url = URL(string: "https://openweathermap.org/img/wn/\(icon).png")
+                        do {
+                            let data = try Data(contentsOf: url!)
+                            self.images.append(UIImage(data: data)!)
+                            
+                        } catch {
+                            print("Something went wrong while fetching the url \(url).")
+                        }
+                        self.forecasts.append("\(mainWeather) \(temperature) C")
+                        self.dates.append(date)
+                        self.temperatures.append("\(temperature) C")
+                    }
+                }
+            }
+        }
     }
 }
