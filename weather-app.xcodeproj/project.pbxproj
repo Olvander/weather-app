@@ -19,6 +19,8 @@
 		E8E0D678234F8DB600F736B2 /* WeatherForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E0D677234F8DB600F736B2 /* WeatherForecastView.swift */; };
 		E8E0D67D234F8EB100F736B2 /* CityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E0D67C234F8EB100F736B2 /* CityView.swift */; };
 		E8E0D67F234F8EF900F736B2 /* CityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8E0D67E234F8EF900F736B2 /* CityView.xib */; };
+		E8E7B9292357200100E355C1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E7B9282357200100E355C1 /* Location.swift */; };
+		E8E7B92B235720BE00E355C1 /* CustomLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E7B92A235720BE00E355C1 /* CustomLocationCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		E8E0D677234F8DB600F736B2 /* WeatherForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastView.swift; sourceTree = "<group>"; };
 		E8E0D67C234F8EB100F736B2 /* CityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityView.swift; sourceTree = "<group>"; };
 		E8E0D67E234F8EF900F736B2 /* CityView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityView.xib; sourceTree = "<group>"; };
+		E8E7B9282357200100E355C1 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		E8E7B92A235720BE00E355C1 /* CustomLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLocationCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				E801F3EF2354821600F726DB /* CustomCell.swift */,
+				E8E7B92A235720BE00E355C1 /* CustomLocationCell.swift */,
+				E8E7B9282357200100E355C1 /* Location.swift */,
 				E8E0D657234F732300F736B2 /* AppDelegate.swift */,
 				E8E0D676234F8C6500F736B2 /* CurrentWeatherView */,
 				E8E0D659234F732300F736B2 /* ViewController.swift */,
@@ -186,6 +192,8 @@
 				E8E0D67D234F8EB100F736B2 /* CityView.swift in Sources */,
 				E801F3F4235485C000F726DB /* WeatherAPIClient.swift in Sources */,
 				E8E0D65A234F732300F736B2 /* ViewController.swift in Sources */,
+				E8E7B9292357200100E355C1 /* Location.swift in Sources */,
+				E8E7B92B235720BE00E355C1 /* CustomLocationCell.swift in Sources */,
 				E8E0D678234F8DB600F736B2 /* WeatherForecastView.swift in Sources */,
 				E801F3F22354840200F726DB /* Item.swift in Sources */,
 				E801F3F02354821600F726DB /* CustomCell.swift in Sources */,

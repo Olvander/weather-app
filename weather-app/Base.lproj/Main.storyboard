@@ -153,18 +153,66 @@
             <point key="canvasLocation" x="2612" y="29.23538230884558"/>
         </scene>
         <!--City Selection-->
-        <scene sceneID="bD0-ZY-tMr">
+        <scene sceneID="9AU-vO-Vcq">
             <objects>
-                <viewController id="Wb5-fl-JiY" userLabel="City Selection" customClass="CityView" customModule="weather_app" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fYR-Uk-yfL">
+                <tableViewController title="City Selection" id="0dw-OV-vfK" customClass="CityView" customModule="weather_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hem-yl-3dZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="R2e-qI-pSV"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="4CK-Gf-dsa"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I8W-pH-ZUq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gps" rowHeight="44" id="GmU-4F-ROZ">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GmU-4F-ROZ" id="71W-sf-tqp">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use GPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BzG-DO-apF">
+                                            <rect key="frame" x="24" y="11.5" width="68" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="BzG-DO-apF" firstAttribute="leading" secondItem="71W-sf-tqp" secondAttribute="leadingMargin" constant="8" id="0Xl-yo-icU"/>
+                                        <constraint firstItem="BzG-DO-apF" firstAttribute="centerY" secondItem="71W-sf-tqp" secondAttribute="centerY" id="ZmT-Qg-Tfz"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="city" id="9pz-pb-jG0">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9pz-pb-jG0" id="57g-Ld-MiL" customClass="CustomLocationCell" customModule="weather_app" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaZ-3R-Pwj">
+                                            <rect key="frame" x="24" y="11.5" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="iaZ-3R-Pwj" firstAttribute="centerY" secondItem="57g-Ld-MiL" secondAttribute="centerY" id="LTP-hQ-n8s"/>
+                                        <constraint firstItem="iaZ-3R-Pwj" firstAttribute="leading" secondItem="57g-Ld-MiL" secondAttribute="leadingMargin" constant="8" id="WJ2-yo-pNQ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0dw-OV-vfK" id="A3h-Rc-gtU"/>
+                            <outlet property="delegate" destination="0dw-OV-vfK" id="Wd2-QE-jnv"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="dSZ-a5-Tao"/>
+                    <connections>
+                        <outlet property="view" destination="57g-Ld-MiL" id="40g-Sl-llZ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aI0-LI-J5I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2612" y="714.69265367316348"/>
         </scene>
@@ -218,7 +266,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Wb5-fl-JiY" kind="relationship" relationship="rootViewController" id="WFQ-pU-t9t"/>
+                        <segue destination="0dw-OV-vfK" kind="relationship" relationship="rootViewController" id="uDe-9L-dUy"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cys-rp-dca" userLabel="First Responder" sceneMemberID="firstResponder"/>
