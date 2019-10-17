@@ -21,14 +21,14 @@ class WeatherAPIClient {
     var queueEmpty = false
     var tableview: UITableView?
     
-    func getCellItemData() -> [Item] {
+    func getCellItemData(from city: String) -> [Item] {
         var array: [Item] = [Item]()
         
         self.group = DispatchGroup()
         
         self.group!.enter()
         
-        fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=Tampere,finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+        fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=\(city),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
         
         self.group!.wait()
         

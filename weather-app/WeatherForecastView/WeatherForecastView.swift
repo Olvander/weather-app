@@ -31,9 +31,23 @@ class WeatherForecastView: UITableViewController {
         
         apiClient.pass(tableview: self.tableview!)
         
-        self.weatherForecast = apiClient.getCellItemData()
+        let uiNav = self.parent as! UINavigationController
+        
+        let tabBarController = uiNav.parent as! UITabBarController
+        
+        let cityNav = tabBarController.viewControllers![2] as! CityNavigationController
+        let cityView = cityNav.viewControllers[0] as! CityView
+        
+        let location = cityView.selectedLocation?.location
+        
+        print(location)
+        
+        if let city = location {
+        
+            self.weatherForecast = apiClient.getCellItemData(from: city)
 
-        self.tableview!.reloadData()
+            self.tableview!.reloadData()
+        }
     }
         
     override func viewDidAppear(_ animated: Bool) {
