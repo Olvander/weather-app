@@ -22,7 +22,7 @@ class CustomLocationCell: UITableViewCell {
     
     @IBAction func onCityTouchUpInside(_ sender: Any) {
         
-        self.gpsTextField
+        //self.gpsTextField
         
         let dictionary: [String:UIView] = ["view": self.cityRectangleView!, "label": city!]
         
