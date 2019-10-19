@@ -168,44 +168,20 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kb1-3K-U3b">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use GPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BzG-DO-apF">
-                                                    <rect key="frame" x="8" y="11.5" width="68" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pra-Ai-gb9">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                                    <connections>
-                                                        <action selector="onGPSClick:" destination="GmU-4F-ROZ" eventType="touchUpInside" id="fdT-99-dt3"/>
-                                                        <action selector="onGPSTouchDown:" destination="GmU-4F-ROZ" eventType="touchDown" id="YaI-tl-kTE"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="BzG-DO-apF" firstAttribute="centerY" secondItem="kb1-3K-U3b" secondAttribute="centerY" id="2yB-dx-wC6"/>
-                                                <constraint firstItem="Pra-Ai-gb9" firstAttribute="top" secondItem="kb1-3K-U3b" secondAttribute="top" id="TfJ-Oz-n7a"/>
-                                                <constraint firstItem="Pra-Ai-gb9" firstAttribute="leading" secondItem="kb1-3K-U3b" secondAttribute="leading" id="Ubl-c0-AdS"/>
-                                                <constraint firstAttribute="trailing" secondItem="Pra-Ai-gb9" secondAttribute="trailing" id="XpS-Km-WuI"/>
-                                                <constraint firstItem="BzG-DO-apF" firstAttribute="leading" secondItem="kb1-3K-U3b" secondAttribute="leading" constant="8" id="eXA-4t-D0R"/>
-                                                <constraint firstAttribute="bottom" secondItem="Pra-Ai-gb9" secondAttribute="bottom" id="zqm-r4-1jY"/>
-                                            </constraints>
-                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use GPS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BzG-DO-apF">
+                                            <rect key="frame" x="8" y="11.5" width="68" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="kb1-3K-U3b" secondAttribute="trailing" id="1Uh-bM-4mT"/>
-                                        <constraint firstItem="kb1-3K-U3b" firstAttribute="leading" secondItem="71W-sf-tqp" secondAttribute="leading" id="FvH-vX-4uD"/>
-                                        <constraint firstItem="kb1-3K-U3b" firstAttribute="top" secondItem="71W-sf-tqp" secondAttribute="top" id="gL3-2p-wAw"/>
-                                        <constraint firstAttribute="bottom" secondItem="kb1-3K-U3b" secondAttribute="bottom" id="kZa-sN-wOs"/>
+                                        <constraint firstItem="BzG-DO-apF" firstAttribute="leading" secondItem="71W-sf-tqp" secondAttribute="leading" constant="8" id="HaN-JD-EhR"/>
+                                        <constraint firstItem="BzG-DO-apF" firstAttribute="centerY" secondItem="71W-sf-tqp" secondAttribute="centerY" id="VBh-BF-hqQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="gps" destination="BzG-DO-apF" id="JrH-qu-Ots"/>
-                                    <outlet property="gpsButton" destination="Pra-Ai-gb9" id="9P0-kF-EFY"/>
-                                    <outlet property="rectangleView" destination="kb1-3K-U3b" id="mp2-rK-lqs"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="city" id="9pz-pb-jG0" customClass="CustomLocationCell" customModule="weather_app" customModuleProvider="target">
@@ -215,44 +191,49 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xh4-EQ-iZL">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaZ-3R-Pwj">
-                                                    <rect key="frame" x="8" y="22" width="0.0" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIU-Nb-YHO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                                    <connections>
-                                                        <action selector="onCityTouchDown:" destination="9pz-pb-jG0" eventType="touchDown" id="Oxf-Gk-SAN"/>
-                                                        <action selector="onCityTouchUpInside:" destination="9pz-pb-jG0" eventType="touchUpInside" id="O48-jP-Mxv"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="JIU-Nb-YHO" firstAttribute="leading" secondItem="Xh4-EQ-iZL" secondAttribute="leading" id="385-Ac-ecB"/>
-                                                <constraint firstAttribute="bottom" secondItem="JIU-Nb-YHO" secondAttribute="bottom" id="5ro-1b-Tpd"/>
-                                                <constraint firstItem="iaZ-3R-Pwj" firstAttribute="leading" secondItem="Xh4-EQ-iZL" secondAttribute="leading" constant="8" id="AKz-sH-VQ6"/>
-                                                <constraint firstAttribute="trailing" secondItem="JIU-Nb-YHO" secondAttribute="trailing" id="Yc1-4f-PH7"/>
-                                                <constraint firstItem="iaZ-3R-Pwj" firstAttribute="centerY" secondItem="Xh4-EQ-iZL" secondAttribute="centerY" id="odw-18-NRs"/>
-                                                <constraint firstItem="JIU-Nb-YHO" firstAttribute="top" secondItem="Xh4-EQ-iZL" secondAttribute="top" id="tDd-eb-gRV"/>
-                                            </constraints>
-                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LZ-72-YKV">
+                                            <rect key="frame" x="8" y="22" width="0.0" height="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="Xh4-EQ-iZL" secondAttribute="bottom" id="p8g-L4-Zc7"/>
-                                        <constraint firstItem="Xh4-EQ-iZL" firstAttribute="top" secondItem="57g-Ld-MiL" secondAttribute="top" id="tkx-a4-rDH"/>
-                                        <constraint firstAttribute="trailing" secondItem="Xh4-EQ-iZL" secondAttribute="trailing" id="v6N-Me-1Ny"/>
-                                        <constraint firstItem="Xh4-EQ-iZL" firstAttribute="leading" secondItem="57g-Ld-MiL" secondAttribute="leading" id="vF4-WJ-utL"/>
+                                        <constraint firstItem="5LZ-72-YKV" firstAttribute="leading" secondItem="57g-Ld-MiL" secondAttribute="leading" constant="8" id="TQF-DE-p4n"/>
+                                        <constraint firstItem="5LZ-72-YKV" firstAttribute="centerY" secondItem="57g-Ld-MiL" secondAttribute="centerY" id="ZjK-bj-6oh"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="city" destination="iaZ-3R-Pwj" id="x9R-jz-JKv"/>
-                                    <outlet property="cityButton" destination="JIU-Nb-YHO" id="utF-x1-N5k"/>
-                                    <outlet property="cityRectangleView" destination="Xh4-EQ-iZL" id="3tE-sl-tn2"/>
+                                    <outlet property="city" destination="5LZ-72-YKV" id="eUe-j8-CWm"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newCity" id="fSW-lZ-Nnp" customClass="CustomLocationCell" customModule="weather_app" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="116" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fSW-lZ-Nnp" id="rLU-QH-cL8">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a city here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jg1-PZ-ovR">
+                                            <rect key="frame" x="8" y="6" width="300" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="300" id="w6W-4k-kAw"/>
+                                            </constraints>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="editBeganOnCity:" destination="fSW-lZ-Nnp" eventType="editingDidBegin" id="X1e-hS-e9z"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Jg1-PZ-ovR" firstAttribute="leading" secondItem="rLU-QH-cL8" secondAttribute="leading" constant="8" id="54l-Yb-05t"/>
+                                        <constraint firstItem="Jg1-PZ-ovR" firstAttribute="centerY" secondItem="rLU-QH-cL8" secondAttribute="centerY" id="y4T-hI-WYm"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="newCityField" destination="Jg1-PZ-ovR" id="5lD-wH-ox3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

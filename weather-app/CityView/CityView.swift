@@ -12,6 +12,9 @@ import UIKit
 class CityView: UITableViewController {
     
     var btn: UIButton?
+    var btn2: UIButton?
+    var newCityCell: CustomLocationCell?
+    var previouslySelectedPath: IndexPath?
     
     var selectedLocation: Location?
     
@@ -27,11 +30,31 @@ class CityView: UITableViewController {
         
         self.tableview!.dataSource = self
         self.tableview!.delegate = self
+        
         self.locations.append(Location(location: "Use GPS"))
         
         self.locations.append(Location(location: "Tampere"))
         
+        self.locations.append(Location(location: "Turku"))
+        
+        self.locations.append(Location(location: ""))
+        
         self.tableview!.reloadData()
+        
+        createButtons()
+        
+        let cityNavigationController: CityNavigationController = self.navigationController as! CityNavigationController
+        
+        cityNavigationController.btn = self.btn
+
+        cityNavigationController.btn!.addTarget(cityNavigationController, action: #selector(cityNavigationController.addACityTouchUp), for: UIControl.Event.touchUpInside)
+        cityNavigationController.btn!.addTarget(cityNavigationController, action: #selector(cityNavigationController.addACityTouchDown), for: UIControl.Event.touchDown)
+        
+        cityNavigationController.btn2 = self.btn2
+        cityNavigationController.btn2!.addTarget(cityNavigationController, action: #selector(cityNavigationController.removeACityTouchUp), for: UIControl.Event.touchUpInside)
+    }
+    
+    func createButtons() {
         
         let btn = UIButton()
         let bounds = self.view.bounds
@@ -45,26 +68,83 @@ class CityView: UITableViewController {
         btn.clipsToBounds = true
         btn.layer.cornerRadius = 40
         
-        self.navigationController?.view.addSubview(btn)
-        
         self.btn = btn
-                
-        let cityNavigationController: CityNavigationController = self.navigationController as! CityNavigationController
         
-        cityNavigationController.btn = self.btn
-
-        cityNavigationController.btn!.addTarget(cityNavigationController, action: #selector(cityNavigationController.addACityTouchUp), for: UIControl.Event.touchUpInside)
+        let btn2 = UIButton()
+        self.parent!.view.safeAreaInsets.bottom
+        btn2.frame = CGRect(x: x, y: y, width: 80, height: 80)
+        btn2.setTitle("x", for: .normal)
+        btn2.titleLabel!.font = UIFont.systemFont(ofSize: 56)
+        btn2.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
+        btn2.backgroundColor = UIColor.red
+        btn2.clipsToBounds = true
+        btn2.layer.cornerRadius = 40
         
-        cityNavigationController.btn!.addTarget(cityNavigationController, action: #selector(cityNavigationController.addACityTouchDown), for: UIControl.Event.touchDown)
-        
+        self.btn2 = btn2
     }
     
-    // This function does not work because of overlapping buttons.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NSLog("\(locations[indexPath.row])")
         
+       if self.selectedLocation != nil && self.selectedLocation!.location != self.locations[indexPath.row].location {
+            
+            self.tableview.deselectRow(at: self.previouslySelectedPath!, animated: true)
+            self.tableView(self.tableview!, didDeselectRowAt: self.previouslySelectedPath!)
+        }
+        
+        self.previouslySelectedPath = indexPath
+        
+        print("SELECTED ROW")
+        
+        let cell = tableView.cellForRow(at: indexPath) as! CustomLocationCell
+        
+        cell.backgroundColor = UIColor(red: 0.2, green: 0.6, blue: 0.85, alpha: 1.00)
+        
+        if indexPath.row == 0 {
+            cell.gps!.textColor = UIColor.white
+           
+            if self.newCityCell != nil {
+                self.newCityCell!.newCityField!.resignFirstResponder()
+            }
+        } else if indexPath.row == locations.count - 1 {
+            self.navigationController?.view.addSubview(self.btn!)
+            self.newCityCell = cell
+            self.newCityCell!.newCityField!.becomeFirstResponder()
+        } else {
+            self.navigationController?.view.addSubview(self.btn2!)
+
+            cell.city!.textColor = UIColor.white
+           
+            if self.newCityCell != nil {
+                self.newCityCell!.newCityField!.resignFirstResponder()
+            }
+        }
         self.selectedLocation = locations[indexPath.row]
         
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        NSLog("\(locations[indexPath.row])")
+        
+        print("DE-SELECTED ROW")
+        
+        let cell = tableView.cellForRow(at: indexPath) as! CustomLocationCell
+
+        cell.backgroundColor = UIColor(red: 0.90, green: 0.97, blue: 0.99, alpha: 1.00)
+        
+        if indexPath.row == 0 {
+            cell.gps!.textColor = UIColor.black
+        } else if indexPath.row == locations.count - 1 {
+            
+            self.btn!.removeFromSuperview()
+            
+        } else {
+            
+            self.btn2!.removeFromSuperview()
+            
+            cell.city!.textColor = UIColor.black
+        }
     }
     
     @objc
@@ -95,32 +175,58 @@ class CityView: UITableViewController {
                 
                 cell.configureGPSCell(location: self.locations[indexPath.row])
                 
-                cell.backgroundColor = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 0.87)
+                cell.selectionStyle = .none
                 
-                
-                // Add a tag to button because it overlaps the cell
-                cell.gpsButton!.tag = indexPath.row
-                
-                // Add a target for the button to get the selected Location
-                cell.gpsButton!.addTarget(self, action: #selector(gpsClicked(sender:)), for: .touchUpInside)
+                cell.backgroundColor = UIColor(red: 0.90, green: 0.97, blue: 0.99, alpha: 1.00)
                 
                 return cell
             
             }
-        } else {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "city", for: indexPath) as? CustomLocationCell {
+        
+        } else if indexPath.row == locations.count - 1 {
                 
-                cell.configureCityCell(location: self.locations[indexPath.row])
-                cell.backgroundColor = UIColor(red: 1.00, green: 1.00, blue: 1.00, alpha: 0.87)
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "newCity", for: indexPath) as? CustomLocationCell {
+        
+                print("WAS NEW CITY")
+        
+                cell.configureNewCityCell(location: Location(location: ""))
+                               
+                if cell.tableview == nil {
+                    cell.tableview = self.tableview
+                }
                 
-                cell.cityButton!.tag = indexPath.row
-                cell.cityButton!.addTarget(self, action: #selector(cityClicked(sender:)), for: .touchUpInside)
-                                
+                if cell.cityView == nil {
+                    cell.cityView = self
+                }
+                
+                let cityNavigationController: CityNavigationController = self.navigationController as! CityNavigationController
+                
+                if cityNavigationController.newCityField == nil {
+                    
+                    cityNavigationController.newCityField = cell.newCityField
+                }
+                
+                cell.selectionStyle = .none
+                
+                cell.backgroundColor = UIColor(red: 0.90, green: 0.97, blue: 0.99, alpha: 1.00)
+                
                 return cell
             }
+            
+        } else {
+                
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "city", for: indexPath) as? CustomLocationCell {
+            
+                cell.configureCityCell(location: self.locations[indexPath.row])
+                
+                cell.selectionStyle = .none
+                
+                cell.backgroundColor = UIColor(red: 0.90, green: 0.97, blue: 0.99, alpha: 1.00)
+                
+                return cell
+                
+            }
         }
-        
         return UITableViewCell()
     }
-    
 }
