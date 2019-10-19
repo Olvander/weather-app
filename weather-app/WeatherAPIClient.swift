@@ -20,6 +20,7 @@ class WeatherAPIClient {
     var queue: DispatchQueue?
     var queueEmpty = false
     var tableview: UITableView?
+    var cityView: CityView?
     
     func getCellItemData(from city: String) -> [Item] {
         var array: [Item] = [Item]()
@@ -28,8 +29,19 @@ class WeatherAPIClient {
         
         self.group!.enter()
         
-        fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=\(city),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+        let location = self.cityView!.selectedLocation?.location
+
+        let gpsLocation = self.cityView!.gpsLocation
         
+        if location == "Use GPS" {
+            if let loc = gpsLocation {
+                fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(loc.coordinate.latitude)&lon=\(loc.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+            }
+            
+        } else {
+        
+            fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=\(city),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+        }
         self.group!.wait()
         
         var i = -1
@@ -60,6 +72,10 @@ class WeatherAPIClient {
     
     func pass(tableview: UITableView) {
         self.tableview = tableview
+    }
+    
+    func pass(cityView: CityView) {
+        self.cityView = cityView
     }
     
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {

@@ -45,9 +45,7 @@ class CurrentWeatherView: UIViewController {
         let uiNav = self.parent as! UINavigationController
         
         let tabBarController = uiNav.parent as! UITabBarController
-        
-        print(tabBarController.viewControllers)
-        
+                
         let cityNav = tabBarController.viewControllers![2] as! CityNavigationController
         let cityView = cityNav.viewControllers[0] as! CityView
         
@@ -55,10 +53,17 @@ class CurrentWeatherView: UIViewController {
         
         let location = cityView.selectedLocation?.location
         
-        print(location)
+        let gpsLocation = cityView.gpsLocation
         
-        if let city = location {
-            fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=\(city),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+        if location == "Use GPS" {
+            if let loc = gpsLocation {
+                fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(loc.coordinate.latitude)&lon=\(loc.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+            }
+            
+        } else {
+            if let city = location {
+                fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=\(city),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+            }
         }
     }
     

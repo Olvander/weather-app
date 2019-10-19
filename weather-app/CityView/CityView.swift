@@ -8,8 +8,9 @@
 
 
 import UIKit
+import CoreLocation
 
-class CityView: UITableViewController {
+class CityView: UITableViewController, CLLocationManagerDelegate {
     
     var btn: UIButton?
     var btn2: UIButton?
@@ -17,6 +18,9 @@ class CityView: UITableViewController {
     var previouslySelectedPath: IndexPath?
     
     var selectedLocation: Location?
+    var gpsLocation: CLLocation?
+    
+    var manager: CLLocationManager?
     
     @IBOutlet weak var tableview: UITableView!
     var locations = [Location]()
@@ -106,10 +110,18 @@ class CityView: UITableViewController {
             if self.newCityCell != nil {
                 self.newCityCell!.newCityField!.resignFirstResponder()
             }
+            
+            fetchGPSCoordinates()
+            
         } else if indexPath.row == locations.count - 1 {
             self.navigationController?.view.addSubview(self.btn!)
             self.newCityCell = cell
             self.newCityCell!.newCityField!.becomeFirstResponder()
+            
+            if self.manager != nil {
+                self.manager!.stopUpdatingLocation()
+                self.gpsLocation = nil
+            }
         } else {
             self.navigationController?.view.addSubview(self.btn2!)
 
@@ -117,6 +129,11 @@ class CityView: UITableViewController {
            
             if self.newCityCell != nil {
                 self.newCityCell!.newCityField!.resignFirstResponder()
+            }
+            
+            if self.manager != nil {
+                self.manager!.stopUpdatingLocation()
+                self.gpsLocation = nil
             }
         }
         self.selectedLocation = locations[indexPath.row]
@@ -145,6 +162,26 @@ class CityView: UITableViewController {
             
             cell.city!.textColor = UIColor.black
         }
+    }
+    
+    func fetchGPSCoordinates() {
+        
+        self.manager = CLLocationManager()
+        self.manager!.delegate = self
+        self.manager!.requestAlwaysAuthorization()
+        self.manager!.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        self.gpsLocation = locations.last
+        self.manager!.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager,
+                         didFailWithError error: Error) {
+        manager.stopUpdatingLocation()
+        print(error)
     }
     
     @objc

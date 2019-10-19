@@ -38,6 +38,8 @@ class WeatherForecastView: UITableViewController {
         let cityNav = tabBarController.viewControllers![2] as! CityNavigationController
         let cityView = cityNav.viewControllers[0] as! CityView
         
+        apiClient.pass(cityView: cityView)
+        
         let location = cityView.selectedLocation?.location
         
         print(location)
