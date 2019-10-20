@@ -20,7 +20,9 @@ class CityView: UITableViewController, CLLocationManagerDelegate {
     var selectedLocation: Location?
     var gpsLocation: CLLocation?
     
-    var manager: CLLocationManager?
+    var indicator: UIActivityIndicatorView?
+    
+    var manager: LocationManager?
     
     @IBOutlet weak var tableview: UITableView!
     var locations = [Location]()
@@ -29,6 +31,8 @@ class CityView: UITableViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.title = "City Selection"
+        
+        print("LOADED CITYVIEW ONCE")
         
         self.view.backgroundColor = UIColor(red: 0.20, green: 0.78, blue: 0.95, alpha: 1.00)
         
@@ -44,6 +48,11 @@ class CityView: UITableViewController, CLLocationManagerDelegate {
         self.locations.append(Location(location: ""))
         
         self.tableview!.reloadData()
+        
+        // Default value in the beginning is GPS
+        selectedLocation = Location(location: "Use GPS")
+        
+        self.tableView(self.tableview, didSelectRowAt: IndexPath(row: 0, section: 0))
         
         createButtons()
         
@@ -119,8 +128,7 @@ class CityView: UITableViewController, CLLocationManagerDelegate {
             self.newCityCell!.newCityField!.becomeFirstResponder()
             
             if self.manager != nil {
-                self.manager!.stopUpdatingLocation()
-                self.gpsLocation = nil
+                stopUpdatingGPS()
             }
         } else {
             self.navigationController?.view.addSubview(self.btn2!)
@@ -132,12 +140,18 @@ class CityView: UITableViewController, CLLocationManagerDelegate {
             }
             
             if self.manager != nil {
-                self.manager!.stopUpdatingLocation()
-                self.gpsLocation = nil
+                stopUpdatingGPS()
             }
         }
         self.selectedLocation = locations[indexPath.row]
         
+    }
+    
+    func stopUpdatingGPS() {
+        self.manager!.manager!.stopUpdatingLocation()
+        self.indicator!.stopAnimating()
+        self.indicator!.removeFromSuperview()
+        self.gpsLocation = nil
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -166,21 +180,42 @@ class CityView: UITableViewController, CLLocationManagerDelegate {
     
     func fetchGPSCoordinates() {
         
-        self.manager = CLLocationManager()
-        self.manager!.delegate = self
-        self.manager!.requestAlwaysAuthorization()
-        self.manager!.startUpdatingLocation()
+        self.indicator = UIActivityIndicatorView()
+        self.indicator!.style = .whiteLarge
+        self.indicator!.color = UIColor.black
+        
+        let top = self.parent!.view.safeAreaInsets.top
+        
+        let centerX = self.parent!.view.bounds.width / 2
+        let centerY = self.parent!.view.bounds.height / 2 - top
+        
+        self.indicator!.center = CGPoint(x: centerX, y: centerY)
+        
+        self.view.addSubview(self.indicator!)
+        self.indicator!.startAnimating()
+        
+        self.manager = LocationManager()
+        //CLLocationManager()
+        self.gpsLocation = self.manager!.getLocation()
+        //self.manager!.delegate = self
+        //self.manager!.requestAlwaysAuthorization()
+        //self.manager!.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         self.gpsLocation = locations.last
-        self.manager!.stopUpdatingLocation()
+        self.manager!.manager!.stopUpdatingLocation()
+        
+        self.indicator!.stopAnimating()
+        self.indicator!.removeFromSuperview()
     }
     
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
         manager.stopUpdatingLocation()
+        self.indicator!.stopAnimating()
+        self.indicator!.removeFromSuperview()
         print(error)
     }
     
@@ -223,9 +258,7 @@ class CityView: UITableViewController, CLLocationManagerDelegate {
         } else if indexPath.row == locations.count - 1 {
                 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "newCity", for: indexPath) as? CustomLocationCell {
-        
-                print("WAS NEW CITY")
-        
+                
                 cell.configureNewCityCell(location: Location(location: ""))
                                
                 if cell.tableview == nil {

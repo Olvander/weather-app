@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreGraphics
+import CoreLocation
 
 class CurrentWeatherView: UIViewController {
     
@@ -19,6 +20,10 @@ class CurrentWeatherView: UIViewController {
     
     @IBOutlet weak var temperatureView: UIView!
     @IBOutlet weak var temperatureLabel: UILabel!
+    
+    var indicator: UIActivityIndicatorView?
+    
+    var manager: LocationManager?
     
     var runAlready = false
     
@@ -41,11 +46,11 @@ class CurrentWeatherView: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-
+        
         let uiNav = self.parent as! UINavigationController
         
         let tabBarController = uiNav.parent as! UITabBarController
-                
+        
         let cityNav = tabBarController.viewControllers![2] as! CityNavigationController
         let cityView = cityNav.viewControllers[0] as! CityView
         
@@ -63,11 +68,39 @@ class CurrentWeatherView: UIViewController {
         } else {
             if let city = location {
                 fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=\(city),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+            } else {
+                
+                let group = DispatchGroup()
+                
+                group.enter()
+ 
+                self.manager = LocationManager()
+                self.manager!.updateLocation()
+                
+                var loc: CLLocation?
+                
+                if self.manager!.gotResults {
+                    loc = self.manager!.getLocation()
+                    group.leave()
+                }
+                
+                print(loc)
+                
+                group.wait()
+                
+                fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(loc!.coordinate.latitude)&lon=\(loc!.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
             }
         }
     }
     
     func fetchUrl(url : String) {
+        self.indicator = UIActivityIndicatorView()
+        self.indicator!.style = .whiteLarge
+        self.indicator!.color = UIColor.black
+        self.indicator!.center = self.view.center
+        self.view.addSubview(self.indicator!)
+        self.indicator!.startAnimating()
+        
         let config = URLSessionConfiguration.default
         
         let session = URLSession(configuration: config)
@@ -148,6 +181,9 @@ class CurrentWeatherView: UIViewController {
         self.temperatureView.isHidden = false
         self.temperatureLabel!.isHidden = false
         self.weatherIcon!.isHidden = false
+        
+        self.indicator!.stopAnimating()
+        self.indicator!.removeFromSuperview()
     }
 }
 

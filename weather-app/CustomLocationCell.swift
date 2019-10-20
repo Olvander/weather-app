@@ -25,7 +25,6 @@ class CustomLocationCell: UITableViewCell, UITextFieldDelegate {
     
     func viewDidLoad() {
         self.newCityField!.delegate = self
-        //self.newCityField!.resignFirstResponder()
     }
     
     @IBAction func onCityTouchUpInside(_ sender: Any) {
@@ -95,13 +94,10 @@ class CustomLocationCell: UITableViewCell, UITextFieldDelegate {
         if self.cityView!.previouslySelectedPath != nil {
             self.tableview!.deselectRow(at: self.cityView!.previouslySelectedPath!, animated: true)
             self.cityView!.tableView(self.tableview!, didDeselectRowAt: self.cityView!.previouslySelectedPath!)
-            
         }
         
         self.tableview!.selectRow(at: IndexPath(row: self.cityView!.locations.count - 1, section: 0), animated: true, scrollPosition: .none)
         self.cityView!.tableView(self.tableview!, didSelectRowAt: IndexPath(row: self.cityView!.locations.count - 1, section: 0) )
-        
-
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

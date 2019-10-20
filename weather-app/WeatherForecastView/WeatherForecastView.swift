@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherForecastView: UITableViewController {
     var weatherForecastIcon: UIImageView?
@@ -14,7 +15,11 @@ class WeatherForecastView: UITableViewController {
 
     var weatherForecast: [Item] = [Item]()
     
+    var indicator: UIActivityIndicatorView?
+    
     @IBOutlet weak var tableview: UITableView!
+    
+    var manager: LocationManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +32,25 @@ class WeatherForecastView: UITableViewController {
         self.tableview!.dataSource = self
         self.tableview!.delegate = self
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.indicator = UIActivityIndicatorView()
+        self.indicator!.style = .whiteLarge
+        self.indicator!.color = UIColor.black
+        let parentInsets = self.parent!.view.safeAreaInsets
+        
+        let top = parentInsets.top
+        
+        let centerX = self.parent!.view.bounds.width / 2
+        let centerY = self.parent!.view.bounds.height / 2 - top
+        
+        self.indicator!.center = CGPoint(x: centerX, y: centerY)
+        self.view.addSubview(self.indicator!)
+        self.indicator!.startAnimating()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         let apiClient = WeatherAPIClient()
         
         apiClient.pass(tableview: self.tableview!)
@@ -40,20 +64,23 @@ class WeatherForecastView: UITableViewController {
         
         apiClient.pass(cityView: cityView)
         
+        apiClient.pass(forecastView: self)
+        
         let location = cityView.selectedLocation?.location
         
         print(location)
         
         if let city = location {
-        
-            self.weatherForecast = apiClient.getCellItemData(from: city)
-
-            self.tableview!.reloadData()
+            
+            self.weatherForecast = apiClient.getCellItemData(from: city, or: nil)
+                        
+            self.indicator?.stopAnimating()
+            self.indicator?.removeFromSuperview()
+        } else {
+            self.manager = LocationManager()
+            let loc = self.manager!.getLocation()
+            self.weatherForecast = apiClient.getCellItemData(from: nil, or: loc)
         }
-    }
-        
-    override func viewDidAppear(_ animated: Bool) {
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

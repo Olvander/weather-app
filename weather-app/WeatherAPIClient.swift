@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class WeatherAPIClient {
     var forecasts = [String]()
@@ -21,8 +22,10 @@ class WeatherAPIClient {
     var queueEmpty = false
     var tableview: UITableView?
     var cityView: CityView?
+    var indicator: UIActivityIndicatorView?
+    var forecastView: WeatherForecastView?
     
-    func getCellItemData(from city: String) -> [Item] {
+    func getCellItemData(from city: String?, or gps: CLLocation?) -> [Item] {
         var array: [Item] = [Item]()
         
         self.group = DispatchGroup()
@@ -38,9 +41,12 @@ class WeatherAPIClient {
                 fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(loc.coordinate.latitude)&lon=\(loc.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
             }
             
-        } else {
+        } else if city != nil {
         
-            fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=\(city),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+            fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=\(city!),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+        } else {
+            fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(gps!.coordinate.latitude)&lon=\(gps!.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+
         }
         self.group!.wait()
         
@@ -55,6 +61,7 @@ class WeatherAPIClient {
     }
     
     func fetchUrl(url : String) {
+        
         let config = URLSessionConfiguration.default
         
         let session = URLSession(configuration: config)
@@ -76,6 +83,10 @@ class WeatherAPIClient {
     
     func pass(cityView: CityView) {
         self.cityView = cityView
+    }
+    
+    func pass(forecastView: WeatherForecastView) {
+        self.forecastView = forecastView
     }
     
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
