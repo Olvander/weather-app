@@ -21,6 +21,10 @@ class WeatherForecastView: UITableViewController {
     
     var manager: LocationManager?
     
+    var apiClient: WeatherAPIClient?
+    
+    var timer: Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -31,7 +35,6 @@ class WeatherForecastView: UITableViewController {
 
         self.tableview!.dataSource = self
         self.tableview!.delegate = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +56,8 @@ class WeatherForecastView: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         let apiClient = WeatherAPIClient()
         
+        self.tableview.reloadData()
+        
         apiClient.pass(tableview: self.tableview!)
         
         let uiNav = self.parent as! UINavigationController
@@ -66,20 +71,44 @@ class WeatherForecastView: UITableViewController {
         
         apiClient.pass(forecastView: self)
         
-        let location = cityView.selectedLocation?.location
+        self.apiClient = apiClient
         
-        print(location)
+        let location = cityView.selectedLocation?.location
         
         if let city = location {
             
-            self.weatherForecast = apiClient.getCellItemData(from: city, or: nil)
-                        
-            self.indicator?.stopAnimating()
-            self.indicator?.removeFromSuperview()
+            apiClient.getCellItemData(from: city, or: nil)
+            
+            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(getForecast), userInfo: nil, repeats: false)
+            
+            if self.indicator != nil {
+                self.indicator!.stopAnimating()
+                self.indicator!.removeFromSuperview()
+                self.view.setNeedsDisplay()
+            }
         } else {
-            self.manager = LocationManager()
-            let loc = self.manager!.getLocation()
-            self.weatherForecast = apiClient.getCellItemData(from: nil, or: loc)
+            
+            apiClient.getCellItemData(from: nil, or: nil)
+            
+            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(getForecast), userInfo: nil, repeats: false)
+        }
+    }
+    
+    @objc
+    func getForecast() {
+        
+        if self.apiClient!.array!.count != 0 {
+            
+            self.weatherForecast = apiClient!.array!
+            self.apiClient!.array = nil
+            
+            self.indicator!.stopAnimating()
+            self.indicator!.removeFromSuperview()
+
+            self.tableview.reloadData()
+
+        } else {
+            self.timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(getForecast), userInfo: nil, repeats: false)
         }
     }
     
@@ -94,7 +123,7 @@ class WeatherForecastView: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "weatherForecast", for: indexPath) as? CustomCell {
-            
+
             cell.configureCell(item: self.weatherForecast[indexPath.row])
             cell.backgroundColor = UIColor(red: 0.20, green: 0.78, blue: 0.95, alpha: 0.0)
             
@@ -102,5 +131,4 @@ class WeatherForecastView: UITableViewController {
         }
         return UITableViewCell()
     }
-    
 }

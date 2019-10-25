@@ -10,52 +10,36 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class WeatherAPIClient {
+class WeatherAPIClient: NSObject, CLLocationManagerDelegate {
     var forecasts = [String]()
     var dates = [String]()
     var images = [UIImage]()
     var temperatures = [String]()
-    var group: DispatchGroup?
-    var group2: DispatchGroup?
-    var doned = false
-    var queue: DispatchQueue?
-    var queueEmpty = false
     var tableview: UITableView?
     var cityView: CityView?
     var indicator: UIActivityIndicatorView?
     var forecastView: WeatherForecastView?
+    var gpsLocation: CLLocation?
+    var manager: CLLocationManager?
+    var timer: Timer?
+    var city: String?
+    var array: [Item]?
     
     func getCellItemData(from city: String?, or gps: CLLocation?) -> [Item] {
         var array: [Item] = [Item]()
         
-        self.group = DispatchGroup()
+        self.array = array
         
-        self.group!.enter()
+        self.manager = CLLocationManager()
+        
+        self.manager!.delegate = self
+        self.manager!.requestAlwaysAuthorization()
+        
+        self.manager!.startUpdatingLocation()
+        
+        self.city = city
         
         let location = self.cityView!.selectedLocation?.location
-
-        let gpsLocation = self.cityView!.gpsLocation
-        
-        if location == "Use GPS" {
-            if let loc = gpsLocation {
-                fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(loc.coordinate.latitude)&lon=\(loc.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
-            }
-            
-        } else if city != nil {
-        
-            fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=\(city!),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
-        } else {
-            fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(gps!.coordinate.latitude)&lon=\(gps!.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
-
-        }
-        self.group!.wait()
-        
-        var i = -1
-        while i < self.forecasts.count - 1 && self.forecasts.count != 0 {
-            i += 1
-            let item = Item(image: self.images[i], forecast: self.forecasts[i], date: self.dates[i])
-            array.append(item)
-        }
         
         return array
     }
@@ -68,14 +52,60 @@ class WeatherAPIClient {
         
         let url : URL? = URL(string: url)
         
-        
         let task = session.dataTask(with: url!, completionHandler: doneFetching);
         
         // Starts the task, spawns a new thread and calls the callback function
-        
         task.resume();
-        
     }
+    
+    @objc
+    func setGps() {
+        var i = -1
+        while i < self.forecasts.count - 1 && self.forecasts.count != 0 {
+            i += 1
+            let item = Item(image: self.images[i], forecast: self.forecasts[i], date: self.dates[i])
+            self.array!.append(item)
+            
+            if i >= self.forecasts.count - 1 {
+                break
+            }
+        }
+        if self.forecasts.count == 0 {
+            self.timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(setGps), userInfo: nil, repeats: false)
+        }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        self.gpsLocation = locations.last
+        self.manager!.stopUpdatingLocation()
+        
+        let gps = self.gpsLocation
+        
+        let location = self.cityView!.selectedLocation?.location
+        
+        if location == "Use GPS" {
+            if let loc = gpsLocation {
+                fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(loc.coordinate.latitude)&lon=\(loc.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+            }
+            
+        } else if self.city != nil {
+            
+            fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?q=\(self.city!),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+        } else {
+            fetchUrl(url: "https://api.openweathermap.org/data/2.5/forecast?lat=\(gps!.coordinate.latitude)&lon=\(gps!.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+            
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager,
+                         didFailWithError error: Error) {
+        manager.stopUpdatingLocation()
+        
+        print(error)
+    }
+    
     
     func pass(tableview: UITableView) {
         self.tableview = tableview
@@ -97,14 +127,27 @@ class WeatherAPIClient {
             self.setForeCastDataAndIcons(data: data!)
         }
         
-        self.group!.leave()
-
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
             NSLog(resstr!)
             
             self.tableview!.reloadData()
         })
+        
+        var array = [Item]()
+        
+        var i = -1
+        while i < self.forecasts.count - 1 && self.forecasts.count != 0 {
+            i += 1
+            let item = Item(image: self.images[i], forecast: self.forecasts[i], date: self.dates[i])
+            
+            array.append(item)
+            
+            if i >= self.forecasts.count - 1 {
+                self.array = array
+                break
+            }
+        }
 
     }
     

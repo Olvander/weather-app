@@ -84,6 +84,7 @@
 				E8E0D659234F732300F736B2 /* ViewController.swift */,
 				E8E0D67B234F8DE200F736B2 /* WeatherForecastView */,
 				E8E0D65B234F732300F736B2 /* Main.storyboard */,
+				E886A907235C5CCF00B6F46B /* LocationManager.swift */,
 				E84990CA235762A800DA21A4 /* CityNavigationController.swift */,
 				E8E0D680234F8F0C00F736B2 /* CityView */,
 				E8E0D65E234F733400F736B2 /* Assets.xcassets */,
@@ -108,7 +109,6 @@
 			isa = PBXGroup;
 			children = (
 				E8E0D677234F8DB600F736B2 /* WeatherForecastView.swift */,
-				E886A907235C5CCF00B6F46B /* LocationManager.swift */,
 			);
 			path = WeatherForecastView;
 			sourceTree = "<group>";

@@ -10,22 +10,19 @@ import UIKit
 import CoreGraphics
 import CoreLocation
 
-class CurrentWeatherView: UIViewController {
+class CurrentWeatherView: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var cityView: UIView!
     @IBOutlet weak var cityLabel: UILabel!
     
     @IBOutlet weak var weatherIcon: UIImageView!
-    
-    
     @IBOutlet weak var temperatureView: UIView!
     @IBOutlet weak var temperatureLabel: UILabel!
     
     var indicator: UIActivityIndicatorView?
-    
-    var manager: LocationManager?
-    
-    var runAlready = false
+    var manager: CLLocationManager?
+    var gpsLocation: CLLocation?
+    var cityview: CityView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,50 +44,58 @@ class CurrentWeatherView: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
+        if self.indicator != nil {
+            self.indicator!.stopAnimating()
+            self.indicator!.removeFromSuperview()
+        }
+        
         let uiNav = self.parent as! UINavigationController
-        
         let tabBarController = uiNav.parent as! UITabBarController
-        
         let cityNav = tabBarController.viewControllers![2] as! CityNavigationController
         let cityView = cityNav.viewControllers[0] as! CityView
         
-        print(cityView.locations)
+        self.cityview = cityView
+        
+        self.manager = CLLocationManager()
+        self.manager!.delegate = self
+        self.manager!.requestAlwaysAuthorization()
+        
+        self.manager!.startUpdatingLocation()
         
         let location = cityView.selectedLocation?.location
         
         let gpsLocation = cityView.gpsLocation
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        self.gpsLocation = locations.last
+        self.manager!.stopUpdatingLocation()
+        
+        let gps = self.gpsLocation
+        let location = self.cityview!.selectedLocation?.location
         
         if location == "Use GPS" {
             if let loc = gpsLocation {
                 fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(loc.coordinate.latitude)&lon=\(loc.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
             }
             
+        } else if let city = location {
+            fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+            
         } else {
-            if let city = location {
-                fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?q=\(city),finland&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
-            } else {
-                
-                let group = DispatchGroup()
-                
-                group.enter()
- 
-                self.manager = LocationManager()
-                self.manager!.updateLocation()
-                
-                var loc: CLLocation?
-                
-                if self.manager!.gotResults {
-                    loc = self.manager!.getLocation()
-                    group.leave()
-                }
-                
-                print(loc)
-                
-                group.wait()
-                
-                fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(loc!.coordinate.latitude)&lon=\(loc!.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
-            }
+            fetchUrl(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(gps!.coordinate.latitude)&lon=\(gps!.coordinate.longitude)&units=metric&APPID=a999e5bd758a659bb04ec14a1df4cb0a")
+            
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager,
+                         didFailWithError error: Error) {
+        manager.stopUpdatingLocation()
+        self.indicator!.stopAnimating()
+        self.indicator!.removeFromSuperview()
+        print(error)
     }
     
     func fetchUrl(url : String) {
@@ -116,11 +121,13 @@ class CurrentWeatherView: UIViewController {
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
         let resstr = String(data: data!, encoding: String.Encoding.utf8)
         
+
         // Execute stuff in UI thread
         DispatchQueue.main.async(execute: {() in
             NSLog(resstr!)
             if data != nil {
                 self.setLabelsAndIcon(data: data!)
+                
             }
         })
     }
@@ -184,10 +191,7 @@ class CurrentWeatherView: UIViewController {
         
         self.indicator!.stopAnimating()
         self.indicator!.removeFromSuperview()
+       
+        self.view.setNeedsDisplay()
     }
 }
-
-
-
-
-

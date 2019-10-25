@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
-class CityNavigationController: UINavigationController {
+class CityNavigationController: UINavigationController, CLLocationManagerDelegate {
     
     var btn: UIButton?
     
@@ -38,8 +39,7 @@ class CityNavigationController: UINavigationController {
         
         self.view.setNeedsDisplay()
     }
-    
-    // Here a city could be added if the textField is not empty...
+
     @objc
     func addACityTouchUp() {
         
@@ -88,10 +88,6 @@ class CityNavigationController: UINavigationController {
     func removeACityTouchUp() {
         
         removeCityFromList()
-        
-        /*
-        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(changeButtonColorDarker), userInfo: nil, repeats: false)
-         */
     }
     
     func removeCityFromList() {

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class LocationManager: UIViewController, CLLocationManagerDelegate {
+class LocationManager: NSObject, CLLocationManagerDelegate {
     
     var manager: CLLocationManager?
     var gpsLocation: CLLocation?
@@ -19,30 +19,40 @@ class LocationManager: UIViewController, CLLocationManagerDelegate {
     var gotResults = false
     
     func getLocation() -> CLLocation {
+        self.gotResults = false
         return self.gpsLocation!
+    }
+    
+    func hasUpdatedGPS() -> Bool {
+        return self.gotResults
     }
     
     func updateLocation() {
         
-        print("updateLocation")
-
         self.manager = CLLocationManager()
         self.manager!.delegate = self
         self.manager!.requestAlwaysAuthorization()
+        
+        print("updateLocation")
+        
+        self.gotResults = false
+        
         self.manager!.startUpdatingLocation()
+        
+        //let task = session.dataTask(with: url!, completionHandler: doneFetching);
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        print("JEAH")
+        self.gpsLocation = locations.last
+        print(self.gpsLocation)
         
         self.gotResults = true
         
-        self.gpsLocation = locations.last
         self.manager!.stopUpdatingLocation()
         
-        self.indicator!.stopAnimating()
-        self.indicator!.removeFromSuperview()
+        self.indicator?.stopAnimating()
+        self.indicator?.removeFromSuperview()
     }
     
     func locationManager(_ manager: CLLocationManager,
