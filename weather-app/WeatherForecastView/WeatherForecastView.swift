@@ -19,8 +19,6 @@ class WeatherForecastView: UITableViewController {
     
     @IBOutlet weak var tableview: UITableView!
     
-    var manager: LocationManager?
-    
     var apiClient: WeatherAPIClient?
     
     var timer: Timer?
