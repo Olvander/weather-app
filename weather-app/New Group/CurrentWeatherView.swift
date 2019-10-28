@@ -93,8 +93,10 @@ class CurrentWeatherView: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
         manager.stopUpdatingLocation()
-        self.indicator!.stopAnimating()
-        self.indicator!.removeFromSuperview()
+        if self.indicator != nil {
+            self.indicator!.stopAnimating()
+            self.indicator!.removeFromSuperview()
+        }
         print(error)
     }
     

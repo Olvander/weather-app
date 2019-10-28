@@ -183,8 +183,10 @@ class CityView: UITableViewController, CLLocationManagerDelegate {
         self.gpsLocation = locations.last
         self.manager!.stopUpdatingLocation()
         
-        self.indicator!.stopAnimating()
-        self.indicator!.removeFromSuperview()
+        if self.indicator != nil {
+            self.indicator!.stopAnimating()
+            self.indicator!.removeFromSuperview()
+        }
     }
     
     func locationManager(_ manager: CLLocationManager,

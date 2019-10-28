@@ -100,9 +100,10 @@ class WeatherForecastView: UITableViewController {
             self.weatherForecast = apiClient!.array!
             self.apiClient!.array = nil
             
-            self.indicator!.stopAnimating()
-            self.indicator!.removeFromSuperview()
-
+            if self.indicator != nil {
+                self.indicator!.stopAnimating()
+                self.indicator!.removeFromSuperview()
+            }
             self.tableview.reloadData()
 
         } else {
